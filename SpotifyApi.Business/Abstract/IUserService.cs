@@ -20,5 +20,6 @@ namespace SpotifyApi.Business.Abstract
         IDataResult<bool> ChangeUserPassword(User user);
         IDataResult<bool> Delete(int id);
         IDataResult<List<OperationClaim>> GetClaims(User user);
+        //IDataResult<List<UserListPagingDto>>GetListWithPaging(UserListFilterDto dto);
     }
 }

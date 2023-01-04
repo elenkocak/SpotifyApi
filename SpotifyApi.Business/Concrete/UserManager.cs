@@ -124,6 +124,22 @@ namespace SpotifyApi.Business.Concrete
                 return new ErrorDataResult<List<UserListDto>>(null, ex.Message, Messages.unknown_err);
             }
         }
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            try
+            {
+                if (user != null)
+                {
+                    var claims = _userDal.GetClaims(user);
+                    return new ErrorDataResult<List<OperationClaim>>(claims, "Ok", Messages.success);
+                }
+                return new ErrorDataResult<List<OperationClaim>>(null, "Operation claims not found", Messages.operation_claims_not_found);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<List<OperationClaim>>(null, ex.Message, Messages.unknown_err);
+            }
+        }
 
         public IDataResult<bool> Update(UserUpdateDto userCreateDto)
         {
@@ -171,24 +187,63 @@ namespace SpotifyApi.Business.Concrete
             }
         }
 
-        public IDataResult<List<OperationClaim>> GetClaims(User user)
-        {
-            try
-            {
-                if(user != null)
-                {
-                    var claims = _userDal.GetClaims(user);
-                    return new ErrorDataResult<List<OperationClaim>>(claims, "Ok", Messages.success);
-                }
-                return new ErrorDataResult<List<OperationClaim>>(null, "Operation claims not found", Messages.operation_claims_not_found);
-            }
-            catch (Exception ex)
-            {
-                return new ErrorDataResult<List<OperationClaim>>(null, ex.Message, Messages.unknown_err);
-            }
-        }
+        //public IDataResult<List<UserListPagingDto>> GetListWithPaging(UserListFilterDto dto)
+        //{
+        //    try
+        //    {
+        //        var users = _userDal.GetList().ToList();
+        //        if (users!= null)
+        //        {
+        //            var usersdto = new List<UserListDto>();
+        //            foreach (var item in users)
+        //            {
+        //                usersdto.Add(new UserListDto
+        //                {
+        //                    Id = item.Id,
+        //                    Email = item.Email,
+        //                    Username = item.Username,
+                            
+        //                });
+        //            }
+        //            if (dto.Search !=null)
+        //            {
+        //                var searching = dto.Search;
+        //                usersdto=usersdto.Where(x=>x.Username.Trim().ToLower().Contains(searching.Trim().ToLower())||x.Email.Trim().ToLower().Contains(searching.Trim().ToLower())).ToList();
+        //            }
+        //            if (dto.Email !=null)
+        //            {
+        //                usersdto = usersdto.Where(X => X.Email.Trim().ToLower() == dto.Email.Trim().ToLower()).ToList();
+        //            }
+        //            if (dto.UserName !=null)
+        //            {
+        //                usersdto = usersdto.Where(x => x.Username.Trim().ToLower() == dto.UserName.Trim().ToLower()).ToList();
+        //            }
+
+        //            var pagingSize = dto.PagingFilterDto.Size;
+        //            var pagingNumber = dto.PagingFilterDto.Page;
+        //            pagingNumber = usersdto.Count % pagingSize > 0 ? pagingNumber + 1 : pagingNumber;
+        //            var totalItem = usersdto.Count;
+        //            int totalPage = (int)Math.Ceiling((double)usersdto.Count / pagingNumber);
+        //            pagingNumber = pagingNumber <= 1 ? 1 : pagingNumber;
+
+        //            var test = new UserListPagingDto
+        //            {
+        //                Users = usersdto,
+        //                Page = new Entity.DTO.PagingDto
+        //                {
+        //                    Page= totalPage,
+        //                    Size= pagingSize,
+                            
+        //                    TotalCount= totalItem,  
+        //                    TotalPages= totalPage,
+        //                }
+        //            };
+        //            return new SuccessDataResult<List<UserListPagingDto>>(test,"OK", Messages.success);
 
 
-      
+                
+            
+          
+        
     }
 }

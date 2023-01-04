@@ -13,7 +13,6 @@ namespace SpotifyApi.Entity.DTO.User
         public string User { get; set; }
         public string Follower { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
         public bool Status { get; set; }
     }
 }

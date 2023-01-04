@@ -25,13 +25,13 @@ namespace SpotifyApi.API.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin,Member")]
-        [HttpGet("getusersbyfollower")]
-        public IActionResult GetUsersByFollower(int followerId)
-        {
-            var result = _userFollowerService.GetUsersByFollowerId(followerId);
-            return Ok(result);
-        }
+        //[Authorize(Roles = "Admin,Member")]
+        //[HttpGet("getusersbyfollower")]
+        //public IActionResult GetUsersByFollower(int followerId)
+        //{
+        //    var result = _userFollowerService.GetUsersByFollowerId(followerId);
+        //    return Ok(result);
+        //}
 
         [Authorize(Roles = "Admin,Member")]
         [HttpPost("follow")]
@@ -42,7 +42,7 @@ namespace SpotifyApi.API.Controllers
         }
 
         [Authorize(Roles = "Admin,Member")]
-        [HttpPost("unfollow")]
+        [HttpPost("remove")]
         public IActionResult UnFollow(int id)
         {
             var result = _userFollowerService.Delete(id);

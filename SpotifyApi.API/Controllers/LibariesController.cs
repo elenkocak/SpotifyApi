@@ -23,33 +23,34 @@ namespace SpotifyApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getall")]
+        [HttpGet("libarygetlist")]
         public IActionResult GetAll(string token)
         {
             var result = _libraryService.GetAll(token);
             return Ok(result);
         }
-
-        [HttpPost("delete")]
+        [HttpGet("libarygetbyid")]
+        public IActionResult GetById(int id, string token)
+        {
+            var result = _libraryService.GetById(id, token);
+            return Ok(result);
+        }
+        [HttpPost("updatelibary")]
+        public IActionResult Update(LibaryUpdateDto dto)
+        {
+            var result = _libraryService.Update(dto);
+            return Ok(result);
+        }
+        [HttpPost("deletelibary")]
         public IActionResult Delete(int id)
         {
             var result = _libraryService.Delete(id);
             return Ok(result);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(LibaryUpdateDto dto)
-        {
-            var result = _libraryService.Update(dto);
-            return Ok(result);
-        }
+       
 
-        [HttpGet("getById")]
-        public IActionResult GetById(int id, string token)
-        {
-            var result = _libraryService.GetById(id, token);
-            return Ok(result);
-        }
+     
 
      
     }

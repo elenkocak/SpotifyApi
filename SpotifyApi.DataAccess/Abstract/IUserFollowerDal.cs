@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpotifyApi.DataAccess.Abstract
 {
-    public interface IUserFollowerDal : IEntityRepository<UserFollower>
+    public interface IUserFollowerDal : IEntityRepository<Follower>
     {
     }
 }

@@ -17,7 +17,7 @@ namespace SpotifyApi.API.Controllers
             _userService = userService;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Member")]
         [HttpGet("getallusers")]
         public IActionResult GetAllUsers()
         {
@@ -33,7 +33,7 @@ namespace SpotifyApi.API.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin,Member")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("updateuser")]
         public IActionResult UpdateUser(UserUpdateDto dto)
         {

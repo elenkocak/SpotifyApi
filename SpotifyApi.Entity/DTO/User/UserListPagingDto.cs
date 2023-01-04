@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpotifyApi.Entity.DTO.SpotifApiDtos.TrackPoolTrackDtos
+namespace SpotifyApi.Entity.DTO.User
 {
-    public class TrackPoolTrackPagingDto : IDto
+    public class UserListPagingDto:IDto
     {
-        public List<TrackPoolTrackListDto> Tracks { get; set; }
+        public List<UserListDto> Users { get; set; }
         public PagingDto Page { get; set; }
     }
 }

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpotifyApi.Entity.DTO.SpotifApiDtos.AlbumDtos
+namespace SpotifyApi.Entity.DTO.SpotifApiDtos.SongPoolDto
 {
-    public class TrackPoolAlbumArtistDto : IDto
+    public class SongPoolListDto:IDto
     {
-        public string Href { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public int Track_Number { get; set; }
         public string Type { get; set; }
-        public string Uri { get; set; }
     }
 }

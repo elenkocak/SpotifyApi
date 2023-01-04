@@ -24,7 +24,7 @@ namespace SpotifyApi.DataAccess.Concrete.Context
         public DbSet<PlaylistFollower> PlaylistFollowers { get; set; }
         public DbSet<Album> Albumss { get; set; }
 
-        public DbSet<UserFollower> UserFollowers { get; set; }
+        public DbSet<Follower> Followers { get; set; }
 
         public DbSet<Library> Libaries { get; set; }
 

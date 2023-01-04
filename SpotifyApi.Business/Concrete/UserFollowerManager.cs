@@ -32,19 +32,18 @@ namespace SpotifyApi.Business.Concrete
                 {
                     if (!followerCheck.Status)
                     {
-                        _userFollowerDal.Update(new UserFollower
+                        _userFollowerDal.Update(new Follower
                         {
                             Id = followerCheck.Id,
                             UserId = followerCheck.UserId,
                             FollowerId = followerCheck.FollowerId,
                             CreatedDate = followerCheck.CreatedDate,
-                            ModifiedDate = DateTime.Now,
                             Status = true
                         });
                     }
                     else
                     {
-                        _userFollowerDal.Add(new UserFollower
+                        _userFollowerDal.Add(new Follower
                         {
                             UserId = userFollowerCreateDto.UserId,
                             FollowerId = userFollowerCreateDto.FollowerId,
@@ -69,13 +68,12 @@ namespace SpotifyApi.Business.Concrete
                 var data = _userFollowerDal.Get(f => f.Id == id);
                 if (data != null)
                 {
-                    _userFollowerDal.Update(new UserFollower
+                    _userFollowerDal.Update(new Follower
                     {
                         Id = data.Id,
                         UserId = data.UserId,
                         FollowerId = data.FollowerId,
                         CreatedDate = data.CreatedDate,
-                        ModifiedDate = DateTime.Now,
                         Status = false
                     });
                     return new SuccessDataResult<bool>(true, "Ok", Messages.success);
@@ -104,7 +102,6 @@ namespace SpotifyApi.Business.Concrete
                             User = _userService.GetById(follower.UserId).Data != null ? _userService.GetById(follower.UserId).Data.Username : "",
                             Follower = _userService.GetById(follower.FollowerId).Data != null ? _userService.GetById(follower.FollowerId).Data.Username : "",
                             CreatedDate = follower.CreatedDate,
-                            ModifiedDate = follower.ModifiedDate,
                             Status = follower.Status
                         });
                     }
@@ -134,7 +131,6 @@ namespace SpotifyApi.Business.Concrete
                             User = _userService.GetById(user.UserId).Data != null ? _userService.GetById(user.UserId).Data.Username : "",
                             Follower = _userService.GetById(user.FollowerId).Data != null ? _userService.GetById(user.FollowerId).Data.Username : "",
                             CreatedDate = user.CreatedDate,
-                            ModifiedDate = user.ModifiedDate,
                             Status = user.Status,
                         });
                     }

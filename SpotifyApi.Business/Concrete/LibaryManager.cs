@@ -20,10 +20,10 @@ namespace SpotifyApi.Business.Concrete
     public class LibaryManager : ILibaryService
     {
         private readonly IPlaylistDal _playlistDal;
-        private readonly ITrackPoolService _trackPoolService;
+        private readonly ISongService _trackPoolService;
         private readonly ILibraryDal _libraryDal;
 
-        public LibaryManager(ILibraryDal libraryDal, IPlaylistDal playlistDal, ITrackPoolService trackPoolService)
+        public LibaryManager(ILibraryDal libraryDal, IPlaylistDal playlistDal, ISongService trackPoolService)
         {
             _libraryDal = libraryDal;
             _playlistDal = playlistDal;

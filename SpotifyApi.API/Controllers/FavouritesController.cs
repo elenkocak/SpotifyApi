@@ -44,12 +44,12 @@ namespace SpotifyApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getById")]
-        public IActionResult GetByIdPlayList(int id,string token)
-        {
-            var result = _favouriteService.GetById(id,token);
-            return Ok(result);
-        }
+        //[HttpGet("getById")]
+        //public IActionResult GetByIdPlayList(int id,string token)
+        //{
+        //    var result = _favouriteService.GetById(id,token);
+        //    return Ok(result);
+        //}
 
         [HttpGet("getAllActive")]
         public IActionResult GetAllActive()

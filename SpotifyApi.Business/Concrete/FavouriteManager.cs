@@ -7,6 +7,7 @@ using SpotifyApi.Entity.Concrete;
 using SpotifyApi.Entity.DTO.FavouriteDtos;
 using SpotifyApi.Entity.DTO.PlaylistDtos;
 using SpotifyApi.Entity.DTO.PlaylistTrackDtos;
+using SpotifyApi.Entity.DTO.SpotifApiDtos.TrackPoolAlbumDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,10 @@ namespace SpotifyApi.Business.Concrete
     public class FavouriteManager : IFavouriteService
     {
         private readonly IFavouriteDal _favouriteDal;
-        private readonly ITrackPoolService _trackPoolService;
+        private readonly ISongService _trackPoolService;
         private readonly IUserService _userService;
 
-        public FavouriteManager(IFavouriteDal favouriteDal, ITrackPoolService trackPoolService, IUserService userService)
+        public FavouriteManager(IFavouriteDal favouriteDal, ISongService trackPoolService, IUserService userService)
         {
             _favouriteDal = favouriteDal;
             _trackPoolService = trackPoolService;
@@ -88,7 +89,7 @@ namespace SpotifyApi.Business.Concrete
                 {
 
                     var url = $"https://api.spotify.com/v1/tracks/{favourite.TrackId}?market=TR";
-                    var trackId = _trackPoolService.RequestSpotifyApi<TrackDetailDto>(url, token).Result;
+                    var trackId = _trackPoolService.ConnectApi<SongPoolDetailDto>(url, token).Result;
 
                     if (trackId.Data == null)
                     {
@@ -148,38 +149,7 @@ namespace SpotifyApi.Business.Concrete
             }
         }
 
-        public IDataResult<FavouriteListDto> GetById(int id, string token)
-        {
-            try
-            {
-                var favourite = _favouriteDal.Get(x => x.Id == id);
-                if (favourite == null)
-                {
-                    return new ErrorDataResult<FavouriteListDto>(null, "", Messages.unknown_err);
-                }
-
-
-
-                var url = $"https://api.spotify.com/v1/tracks/{favourite.TrackId}?market=TR";
-                var trackId = _trackPoolService.RequestSpotifyApi<TrackDetailDto>(url, token).Result;
-                if (trackId.Data == null)
-                {
-                    return new ErrorDataResult<FavouriteListDto>(null, trackId.Message, trackId.MessageCode);
-                }
-
-                return new SuccessDataResult<FavouriteListDto>(new FavouriteListDto
-                {
-                    Id = favourite.Id,
-                    //UserId = favourite.UserId,
-                    CreatedDate = favourite.CreatedDate,
-                    Status = favourite.Status
-                });
-            }
-            catch (Exception e)
-            {
-                return new ErrorDataResult<FavouriteListDto>(null, e.Message, Messages.unknown_err);
-            }
-        }
+       
 
         public IDataResult<bool> Update(FavouriteUpdateDto libraryUpdateDto)
         {

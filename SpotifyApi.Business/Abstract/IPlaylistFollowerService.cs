@@ -13,8 +13,9 @@ namespace SpotifyApi.Business.Abstract
     {
         IDataResult<bool> Add(PlaylistFollowerCreateDto playlistCreateDto);
         IDataResult<bool> Delete(int id);
+        IDataResult<PlaylistFollowerListDto> GetById(int id);
+
         IDataResult<bool> Update(PlaylistFollowerUpdateDto playlistUpdateDto);
         IDataResult<List<PlaylistFollower>> GetAll();
-        IDataResult<PlaylistFollowerListDto> GetById(int id);
     }
 }

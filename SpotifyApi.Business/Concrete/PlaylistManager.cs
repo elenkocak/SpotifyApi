@@ -5,7 +5,7 @@ using SpotifyApi.DataAccess.Abstract;
 using SpotifyApi.DataAccess.Concrete.EntityFramework;
 using SpotifyApi.Entity.Concrete;
 using SpotifyApi.Entity.DTO.PlaylistDtos;
-using SpotifyApi.Entity.DTO.SpotifApiDtos.PlaylistDtos;
+using SpotifyApi.Entity.DTO.SpotifApiDtos.TrackPoolAlbumDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +18,10 @@ namespace SpotifyApi.Business.Concrete
     public class PlaylistManager : IPlaylistService
     {
         private IPlaylistDal _playlistDal;
-        private readonly ITrackPoolService _trackPoolService;
+        private readonly ISongService _trackPoolService;
         private readonly IUserService _userService;
 
-        public PlaylistManager(IPlaylistDal playlistDal, ITrackPoolService trackPoolService, IUserService userService)
+        public PlaylistManager(IPlaylistDal playlistDal, ISongService trackPoolService, IUserService userService)
         {
             _playlistDal = playlistDal;
             _trackPoolService = trackPoolService;
@@ -39,7 +39,7 @@ namespace SpotifyApi.Business.Concrete
                         return new ErrorDataResult<bool>(false, "Id can not be null", Messages.err_null);
                     }
                     var url = $"https://api.spotify.com/v1/playlists/{playlistCreateDto.PlaylistId}?market=TR";
-                    var data = _trackPoolService.RequestSpotifyApi<GetNameAndDescDto>(url, playlistCreateDto.Token).Result;
+                    var data = _trackPoolService.ConnectApi<SongPoolDetailDto>(url, playlistCreateDto.Token).Result;
                     if (data.Success)
                     {
                         var playlist = new Playlist
@@ -125,7 +125,6 @@ namespace SpotifyApi.Business.Concrete
                     UserName = _userService.Get(u => u.Id == playlist.UserId).Data != null ? _userService.Get(u => u.Id == playlist.UserId).Data.Username : "",
                     CreatedDate = playlist.CreatedDate,
                     Status = playlist.Status,
-                    //Type = playlist.Type
                 });
             }
             catch (Exception e)

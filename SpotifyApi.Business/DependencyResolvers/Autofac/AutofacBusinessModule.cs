@@ -4,7 +4,6 @@ using Castle.DynamicProxy;
 using SpotifyApi.Business.Abstract;
 using SpotifyApi.Business.Concrete;
 using SpotifyApi.Core.Security;
-using SpotifyApi.Core.Utilities.Interceptors;
 using SpotifyApi.DataAccess.Abstract;
 using SpotifyApi.DataAccess.Concrete.EntityFramework;
 
@@ -21,8 +20,7 @@ namespace SpotifyApi.Business.DependencyResolvers.Autofac
             builder.RegisterType<PlaylistManager>().As<IPlaylistService>();
             builder.RegisterType<EfPlaylistDal>().As<IPlaylistDal>();
 
-            builder.RegisterType<PlaylistTrackManager>().As<IPlaylistTrackService>();
-            builder.RegisterType<EfPlaylistTrackDal>().As<IPlaylistTrackDal>();
+         
 
             builder.RegisterType<PlaylistFollowerManager>().As<IPlaylistFollowerService>();
             builder.RegisterType<EfPlaylistFollowerDal>().As<IPlaylistFollowerDal>();
@@ -37,7 +35,7 @@ namespace SpotifyApi.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserFollowerDal>().As<IUserFollowerDal>();
             builder.RegisterType<UserFollowerManager>().As<IUserFollowerService>();
 
-            builder.RegisterType<TrackPoolManager>().As<ITrackPoolService>();
+            builder.RegisterType<SongPoolManager>().As<ISongService>();
 
             builder.RegisterType<EfLibraryDal>().As<ILibraryDal>();
             builder.RegisterType<LibaryManager>().As<ILibaryService>();
@@ -46,12 +44,7 @@ namespace SpotifyApi.Business.DependencyResolvers.Autofac
             builder.RegisterType<FavouriteManager>().As<IFavouriteService>();
 
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                     .EnableInterfaceInterceptors(new ProxyGenerationOptions()
-                     {
-                         Selector = new AspectInterceptorSelector()
-                     }).SingleInstance();
+           
         }
     }
 }

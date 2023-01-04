@@ -15,13 +15,13 @@ namespace SpotifyApi.API.Controllers
         {
             _albumService = albumService;
         }
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        [HttpPost("createalbum")]
+        public IActionResult Add(AlbumAddDto dto)
         {
-            var album = _albumService.GetById(id);
-            return Ok(album);
+            var result = _albumService.Add(dto);
+            return Ok(result);
         }
+
 
         [HttpGet("getlist")]
         public IActionResult GetList()
@@ -30,24 +30,26 @@ namespace SpotifyApi.API.Controllers
             return Ok(albumList);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(AlbumAddDto dto)
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _albumService.Add(dto);
-            return Ok(result);
+            var album = _albumService.GetById(id);
+            return Ok(album);
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete(int id)
-        {
-            var result = _albumService.Delete(id);
-            return Ok(result);
-        }
+     
 
         [HttpPost("update")]
         public IActionResult Update(AlbumUpdateDto dto)
         {
             var result = _albumService.Update(dto);
+            return Ok(result);
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete(int id)
+        {
+            var result = _albumService.Delete(id);
             return Ok(result);
         }
     }

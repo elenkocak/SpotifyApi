@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SpotifyApi.DataAccess.Concrete.EntityFramework
 {
-    public class EfUserFollowerDal : EfEntityRepositoryBase<UserFollower, SpotifyApiDbContext>, IUserFollowerDal
+    public class EfUserFollowerDal : EfEntityRepositoryBase<Follower, SpotifyApiDbContext>, IUserFollowerDal
     {
     }
 }

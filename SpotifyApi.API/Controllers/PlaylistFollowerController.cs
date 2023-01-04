@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyApi.Business.Abstract;
 using SpotifyApi.Entity.DTO.PlaylistFollowerDtos;
@@ -7,6 +8,7 @@ namespace SpotifyApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaylistFollowerController : ControllerBase
     {
         private IPlaylistFollowerService _playlistFollowerService;
@@ -16,35 +18,35 @@ namespace SpotifyApi.API.Controllers
             _playlistFollowerService = playlistFollowerService;
         }
 
-        [HttpPost("create")]
+        [HttpPost("addplaylist")]
         public IActionResult AddPlaylist(PlaylistFollowerCreateDto dto)
         {
             var result = _playlistFollowerService.Add(dto);
             return Ok(result);
         }
 
-        [HttpGet("getAll")]
+        [HttpGet("getlist")]
         public IActionResult GetAll()
         {
             var result = _playlistFollowerService.GetAll();
             return Ok(result);
         }
 
-        [HttpPost("delete")]
+        [HttpPost("removeplaylist")]
         public IActionResult Delete(int id)
         {
             var result = _playlistFollowerService.Delete(id);
             return Ok(result);
         }
 
-        [HttpPost("update")]
+        [HttpPost("updateplaylist")]
         public IActionResult UpdatePlayList(PlaylistFollowerUpdateDto dto)
         {
             var result = _playlistFollowerService.Update(dto);
             return Ok(result);
         }
 
-        [HttpGet("getById")]
+        [HttpGet("getplaylistbyid")]
         public IActionResult GetByIdPlayList(int id)
         {
             var result = _playlistFollowerService.GetById(id);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyApi.Business.Abstract;
 using SpotifyApi.Entity.Concrete;
@@ -8,6 +9,7 @@ namespace SpotifyApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaylistController : ControllerBase
     {
         private IPlaylistService _playlistService;
@@ -17,14 +19,14 @@ namespace SpotifyApi.API.Controllers
             _playlistService = playlistService;
         }
 
-        [HttpPost("create")]
+        [HttpPost("addplaylist")]
         public IActionResult AddPlaylist(PlaylistCreateDto dto)
         {
             var result = _playlistService.Add(dto);
             return Ok(result);
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getlist")]
         public IActionResult GetAll()
         {
             var result = _playlistService.GetAll();
@@ -47,7 +49,7 @@ namespace SpotifyApi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getById")]
+        [HttpGet("getbyid")]
         public IActionResult GetByIdPlayList(int id)
         {
             var result = _playlistService.GetById(id);

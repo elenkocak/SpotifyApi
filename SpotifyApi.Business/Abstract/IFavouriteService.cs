@@ -15,7 +15,7 @@ namespace SpotifyApi.Business.Abstract
         IDataResult<bool> Update(FavouriteUpdateDto libraryUpdateDto);
 
         IDataResult<List<FavouriteListDto>> GetAll(string token);
-        IDataResult<FavouriteListDto> GetById(int id,string token);
+        //IDataResult<FavouriteListDto> GetById(int id,string token);
 
         IDataResult<List<FavouriteListDto>> GetAllActive();
 
